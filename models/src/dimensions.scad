@@ -44,6 +44,14 @@ CD_CENTER_HOLE = 15;
 CD_CLAMP_R_MIN = 26;
 CD_CLAMP_R_MAX = 33;
 
+// Inner tray usable depth — derived from spindle-to-bezel + CD radius + rear margin.
+// Matches typical 5.25" half-height CD tray depth. Refine when donor drive measured.
+TRAY_INNER_D = SPINDLE_TO_BEZEL + CD_DISC_DIA / 2 + 10;
+
+// Spindle clearance hole radius — clears the CD spindle hub / clamp area.
+// Sized at CD_CLAMP_R_MAX + 1 mm safety; also clears the MD internal disc edge.
+SPINDLE_CLEARANCE_R = CD_CLAMP_R_MAX + 1;
+
 
 // ---------------------------------------------------------------------------
 // MiniDisc cartridge (the part the tray must position and shutter-actuate)
@@ -70,3 +78,26 @@ FIT_CLEARANCE = 0.4;
 // OpenSCAD render facet count for circular features.
 // Higher = smoother curves at the cost of render time.
 $fn = 64;
+
+
+// ---------------------------------------------------------------------------
+// Tray geometry (design constants)
+// ---------------------------------------------------------------------------
+
+// Tray base plate thickness — chosen for FDM stiffness across the full footprint.
+// Must exceed MD_POCKET_DEPTH so the pocket leaves a continuous floor.
+TRAY_BASE_THICKNESS = 4.0;
+
+// MD pocket recess depth — how far the cartridge sits below the tray surface.
+// MD_H = 5 mm; a 3 mm recess leaves the cartridge ~2 mm proud, easy to grip.
+MD_POCKET_DEPTH = 3.0;
+
+// Shutter actuator pin geometry — engages the MD cartridge shutter tab from
+// inside the pocket as the cartridge is slid into final position.
+SHUTTER_PIN_DIA = 3.0;
+SHUTTER_PIN_H = 6.0;
+
+// Shutter tab engagement position, measured from the leading corner of the
+// MD pocket. Approximate; refine against a physical Sony MD cartridge.
+SHUTTER_TAB_X_OFFSET = 5.0;
+SHUTTER_TAB_Y_OFFSET = 4.0;
