@@ -101,3 +101,47 @@ SHUTTER_PIN_H = 6.0;
 // MD pocket. Approximate; refine against a physical Sony MD cartridge.
 SHUTTER_TAB_X_OFFSET = 5.0;
 SHUTTER_TAB_Y_OFFSET = 4.0;
+
+
+// ---------------------------------------------------------------------------
+// Spindle adapter (issue #8) — OEM CD/DVD spindle hub ↔ MD center hole
+// ---------------------------------------------------------------------------
+//
+// Two-stage stacked-cylinder sleeve. Lower sleeve slip-fits over the OEM hub;
+// upper post engages the MD internal-disc 11 mm center hole.
+//
+// SPINDLE_HUB_OD and SPINDLE_PEG_H are OPEN RISKS — placeholders pending
+// physical measurement of the project donor drive. See
+// docs/dimensions/assumptions.md.
+
+// OEM spindle hub outer diameter — mid-range default from typical 5.25"
+// half-height ODD spindles (~14–16 mm). VERIFY against donor drive.
+SPINDLE_HUB_OD = 15;
+
+// OEM spindle hub peg height — typical default; VERIFY against donor drive.
+SPINDLE_PEG_H = 3.5;
+
+// Adapter inner bore — slip-fit on the OEM hub.
+SPINDLE_ADAPTER_BORE = SPINDLE_HUB_OD + 2 * FIT_CLEARANCE;
+
+// Adapter upper-post OD — enters the MD center hole with FIT_CLEARANCE on
+// each side. With MD_CENTER_HOLE = 11 and FIT_CLEARANCE = 0.4 → 10.2 mm.
+SPINDLE_ADAPTER_POST_OD = MD_CENTER_HOLE - 2 * FIT_CLEARANCE;
+
+// Adapter lower-sleeve OD — kept well below the MD internal disc edge
+// (MD_DISC_DIA = 64 mm) so the sleeve does not foul the cartridge floor.
+// Provides ~3 mm wall around the bore for FDM strength.
+SPINDLE_ADAPTER_LOWER_OD = 22;
+
+// Adapter stack heights — split so total height fits inside the cartridge
+// pocket envelope (MD_POCKET_DEPTH = 3.0 mm).
+SPINDLE_ADAPTER_LOWER_H = 1.5;
+SPINDLE_ADAPTER_POST_H = 1.5;
+
+// Total stacked height. MUST satisfy SPINDLE_ADAPTER_TOTAL_H <= MD_POCKET_DEPTH;
+// enforced by an assert() in parts/spindle_adapter.scad.
+SPINDLE_ADAPTER_TOTAL_H = SPINDLE_ADAPTER_LOWER_H + SPINDLE_ADAPTER_POST_H;
+
+// Lead-in chamfer on the top edge of the upper post (0.5 mm × 45°) to ease
+// loading of the MD cartridge over the post.
+SPINDLE_ADAPTER_CHAMFER = 0.5;

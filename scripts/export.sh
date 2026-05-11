@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Export tray.scad to a print-ready STL.
+# Export all printable models to STL.
 #
 # Usage:
-#   ./scripts/export.sh            # writes models/export/tray.stl
-#   ./scripts/export.sh --check    # validates geometry only, no file written
+#   ./scripts/export.sh            # writes every STL under models/export/
+#   ./scripts/export.sh --check    # validates geometry only, no files written
 #
 # Prerequisites:
 #   openscad >= 2021.01  (https://openscad.org/downloads.html)
@@ -14,17 +14,30 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SRC="$REPO_ROOT/models/src/tray.scad"
-OUT="$REPO_ROOT/models/export/tray.stl"
+EXPORT_DIR="$REPO_ROOT/models/export"
+
+# (source .scad, output stem) pairs
+PARTS=(
+    "models/src/tray.scad:tray"
+    "models/src/parts/spindle_adapter.scad:spindle_adapter"
+)
 
 if [[ "${1:-}" == "--check" ]]; then
     echo "Checking geometry only (no STL written)..."
-    openscad --export-format binstl -o /dev/null "$SRC"
+    for entry in "${PARTS[@]}"; do
+        src="$REPO_ROOT/${entry%%:*}"
+        echo "  - ${entry%%:*}"
+        openscad --export-format binstl -o /dev/null "$src"
+    done
     echo "Geometry OK."
     exit 0
 fi
 
-mkdir -p "$(dirname "$OUT")"
-echo "Exporting $SRC → $OUT"
-openscad -o "$OUT" "$SRC"
-echo "Done: $OUT"
+mkdir -p "$EXPORT_DIR"
+for entry in "${PARTS[@]}"; do
+    src="$REPO_ROOT/${entry%%:*}"
+    out="$EXPORT_DIR/${entry##*:}.stl"
+    echo "Exporting $src → $out"
+    openscad -o "$out" "$src"
+done
+echo "Done."

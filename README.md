@@ -47,13 +47,19 @@ Open `models/src/<file>.scad` in the OpenSCAD GUI and press **F5** to preview, *
 
 ### Exporting STL from the CLI
 
-STL is the print-ready format consumed by the AFINIA H400+ slicer. Render from the command line so exports are reproducible:
+STL is the print-ready format consumed by the AFINIA H400+ slicer. Render every printable model from the command line via the helper script:
 
 ```bash
-openscad -o models/export/tray.stl models/src/tray.scad
+./scripts/export.sh            # writes every STL under models/export/
+./scripts/export.sh --check    # validates geometry only (no files written)
 ```
 
-(`tray.scad` is added in Phase 2 — see [#3](https://github.com/weyucou/minidisc-tray/issues/3).)
+The script renders:
+
+- `models/export/tray.stl` from `models/src/tray.scad` ([#3](https://github.com/weyucou/minidisc-tray/issues/3))
+- `models/export/spindle_adapter.stl` from `models/src/parts/spindle_adapter.scad` ([#8](https://github.com/weyucou/minidisc-tray/issues/8))
+
+Either part can be rendered individually with `openscad -o <out>.stl <src>.scad`.
 
 ## Slicer — Afinia Studio (AFINIA H400+)
 
@@ -68,10 +74,12 @@ The target printer is the **AFINIA H400+** running **Afinia Studio**.
 
 ## Open Dimensions
 
-Two dimensions in [`dimensions.scad`](models/src/dimensions.scad) are placeholders pending physical measurement of the donor drive — see [#2](https://github.com/weyucou/minidisc-tray/issues/2):
+Several dimensions in [`dimensions.scad`](models/src/dimensions.scad) are placeholders pending physical measurement of the donor drive — see [#2](https://github.com/weyucou/minidisc-tray/issues/2) and [#8](https://github.com/weyucou/minidisc-tray/issues/8):
 
 - `SPINDLE_TO_BEZEL` — currently 88 mm (mid-range default; range 80–95 mm)
 - Bezel/lip height — not yet measured
+- `SPINDLE_HUB_OD` — currently 15 mm (mid-range of typical 5.25" half-height ODD spindles)
+- `SPINDLE_PEG_H` — currently 3.5 mm (typical hub peg height)
 
 Measurements should be added to `docs/dimensions/` and the corresponding constants updated when the physical donor drive is available.
 
