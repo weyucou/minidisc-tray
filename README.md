@@ -81,7 +81,7 @@ Several dimensions in [`dimensions.scad`](models/src/dimensions.scad) are placeh
 - `SPINDLE_HUB_OD` — currently 15 mm (mid-range of typical 5.25" half-height ODD spindles)
 - `SPINDLE_PEG_H` — currently 3.5 mm (typical hub peg height)
 
-Measurements should be added to `docs/dimensions/` and the corresponding constants updated when the physical donor drive is available.
+Measurements should be added to `docs/dimensions/` and the corresponding constants updated when the physical donor drive is available. The physical fit test (donor drive + AFINIA H400+ print + MD cartridge) is tracked in [#13](https://github.com/weyucou/minidisc-tray/issues/13); record measurements and AC results in [`docs/dimensions/fit-test-report.md`](docs/dimensions/fit-test-report.md).
 
 ## Related Repositories
 
