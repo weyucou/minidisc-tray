@@ -58,3 +58,10 @@ Derived dimensions at defaults:
 The total-height envelope is enforced by an `assert()` in the part file; rendering aborts if the constants are tuned past the pocket depth.
 
 `SPINDLE_HUB_OD` and `SPINDLE_PEG_H` are placeholders until the donor drive is measured — a follow-up physical fit-test issue will calibrate press-fit tolerances on the AFINIA H400+ print.
+
+## Physical fit test (issue #13)
+
+The donor-drive measurements and the four acceptance-criteria results are
+captured in [`fit-test-report.md`](./fit-test-report.md). Fill that report in
+during the print + fit run; copy the verified measurements back into the
+**Verify against** column above on sign-off.
