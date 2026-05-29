@@ -1,5 +1,9 @@
 # minidisc-tray
 
+> **RETIRED — parked 2026-05-29.** Design is digitally complete through Phase 3, but physical validation ([#13](https://github.com/weyucou/minidisc-tray/issues/13)) is blocked on unavailable hardware (3D printer + donor optical drive + MD cartridge).
+> **Resume condition:** the required hardware becomes available to run the #13 fit test and validate `models/src/dimensions.scad`.
+> Retirement tracked in [#15](https://github.com/weyucou/minidisc-tray/issues/15).
+
 ## Goals
 
 Design and produce a 3D printable CD/DVD drive tray replacement that allows placement of a Sony MiniDisc and automatically opens the MiniDisc protective cover.
